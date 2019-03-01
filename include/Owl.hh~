@@ -1,0 +1,26 @@
+#ifndef OWL_HH
+#define OWL_HH
+#include <SFML/Graphics.hpp>
+#include <vector>
+#include <iostream>
+#include <string>
+
+class Owl : public sf::Transformable{
+private:
+  float fTime, fChangeSprite, fTempTime;
+  std::vector<sf::Sprite> fOwlMoves;
+  std::map<int,std::vector<sf::Sprite> > fOwlMovesMap;
+  std::map<std::string,int> fOrientation;
+  sf::Texture fOwlSheet;
+   
+  int fIndex;
+  bool fItsDark;
+  
+public:
+  Owl();
+  ~Owl();
+  sf::Sprite* GetOwl(){return &fOwlMoves[fIndex];}
+  int N(){return fOwlMoves.size();}
+  void update(float,sf::Vector2f,bool,sf::Vector2f);
+};
+#endif

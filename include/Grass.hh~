@@ -1,0 +1,43 @@
+#ifndef GRASS_HH
+#define GRASS_HH
+#include <SFML/Graphics.hpp>
+#include "../include/Box.hh"
+#include "../include/GenerateForce.hh"
+
+// The box class is perfect to build grass shapes
+
+class Grass{
+private:
+  sf::Vector2f fOrigin;              // Position of bottom
+  int fNpts;                         // # of boxes to draw vertically
+  float fL,fW;                       // Intrinic height/width of the blade
+  float fGradFact;                   // Factor to reduce blade's with as a function of L
+  float fdL;                         // Length of sub-blade unit
+  float fAngle, fdAngle;             // Fundamental angle of the blade
+  int fDir;                          // Did we build it with (left==0) or (right==1) bias
+  float fTime,fWind;                 // Total Time, and wind velocity
+  std::vector<sf::VertexArray> fGrassBlade; // House all the components of a blade
+  std::vector<Box> fGrassBox;                
+  std::vector<sf::Color> fColor, fMinColor; // toggle b/t colors to simulate darkness
+  sf::Color fRandColor;
+  float deg;
+  bool fItsDark;                     // Initiate darkness routines
+  bool fDarkFlag;                    // Did the status of darkness change?
+  float fTempTime;
+  float fDarkenTime;                 // Time it takes to reduce RGB of grass 
+  
+public:
+  Grass(sf::Vector2f,int,float,float,sf::Color);
+  ~Grass();
+  void create();
+  void add_gradient();
+  void simulate(float,bool);
+  void reduce_color();
+  void increase_color();
+  sf::VertexArray* get_grass(){ return &(fGrassBlade[0]); }
+  float L(){ return fL; }
+  int N(){ return fNpts; }
+  float Ang(){ return fAngle; }
+
+};
+#endif

@@ -1,0 +1,32 @@
+#ifndef BOX_HH
+#define BOX_HH
+#include <SFML/Graphics.hpp>
+
+////////////////////////////////////////////////////////////
+// Simple class to draw a box/trapezoid
+// The constructor contains two sf::Vector2f arguments,
+// one for the bottom/top central points. The first float
+// is the width of the bottom, and the 2nd float is the
+// ratio of the top's width wrt the bottom (1.0 would be a true box)
+
+class Box{
+  private:
+  float fFac;
+  float fBWidth, fLength, fTWidth;
+  sf::VertexArray fBox;
+  sf::Vector2f fS, fF;
+  
+  public:
+  Box(sf::Vector2f,sf::Vector2f,float,float);
+  ~Box(){;}
+  void SetFillColor(sf::Color);
+  sf::VertexArray GetBox(){return fBox;}
+  float Length()   {return fLength;}
+  float BotWidth() {return fBWidth;}
+  float TopWidth() {return fTWidth;}
+  sf::Vector2f GetStart() {return fS;}
+  sf::Vector2f GetFinal() {return fF;}
+  sf::Vector2f SetStart(sf::Vector2f pos){fS=pos;}
+  sf::Vector2f SetFinal(sf::Vector2f pos){fF=pos;}
+};
+#endif
